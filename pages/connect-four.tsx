@@ -19,7 +19,7 @@
  *
  ******************************************************************************/
 
-import { useReducer } from 'react'
+import React, { useReducer } from 'react'
 
 //------------------------------------------------------------------------------
 // TYPES
@@ -200,8 +200,11 @@ const ConnectFour = () => {
           return row.map((value, x) => {
             const isPlaying = state.status === 'playing'
             const isPlayable = validateMove(state.grid, x, y)
+            const accessibleValue = value !== null ? value : 'empty'
             return (
               <button
+                data-testid={`Cell-${y}-${x}-${value}`}
+                aria-label={`Cell at column ${y} and row ${x} is ${accessibleValue}`}
                 key={[x, y].join(',')}
                 disabled={!isPlaying || !isPlayable}
                 style={{ height: 60, width: 60, color: 'black' }}
